@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Strapi local cache and build outputs
+backend/.tmp/
+backend/.cache/
+backend/build/
+backend/dist/
+backend/.env
+
+# Ignore the local SQLite database files completely
+backend/data.db
+backend/.tmp/data.db
+*.db
