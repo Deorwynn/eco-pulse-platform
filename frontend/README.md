@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EcoPulse Platform | Green Tech Hub & Editorial Suite
 
-## Getting Started
+A high-performance, digitally sustainable content platform engineered with a
+modern decoupled architecture. This repository serves as a split-stack monorepo
+containing a type-safe Next.js frontend application tightly integrated with a
+headless Strapi v5 content management database layer.
 
-First, run the development server:
+## Core Architecture & Stack Selection
+
+The platform is intentionally split into two isolated, specialized
+infrastructure layers:
+
+| Layer        | Technology                                        | Primary Responsibility                                                        | Port   |
+| :----------- | :------------------------------------------------ | :---------------------------------------------------------------------------- | :----- |
+| **Frontend** | Next.js 15 (App Router), TypeScript, Tailwind CSS | Server-side rendering, routing optimization, semantic UI delivery             | `3000` |
+| **Backend**  | Strapi v5, SQLite, TypeScript                     | Content modeling, relational data storage, security roles, REST API endpoints | `1338` |
+
+### Architectural Engineering Decisions
+
+1. **Decoupled Headless Design:** By separating the data management engine from
+   the presentation layer, the application eliminates monolithic rendering
+   bottlenecks. The frontend pre-fetches lightweight JSON payloads
+   asynchronously over local loops, maximizing SEO discoverability and Core Web
+   Vitals.
+2. **Type-Safe Schema Mapping:** Data contracts between the API endpoints and
+   the component tree are governed strictly through explicit TypeScript
+   interfaces, mitigating runtime regressions and ensuring predictable data
+   flow.
+3. **Optimized Local Asset Pipelines:** Engineered configuration solutions
+   within Next.js remote domain patterns to systematically process media
+   payloads locally, laying down production-ready configurations for seamless
+   transition to cloud edge object storage (e.g., S3 or Cloudinary).
+
+## Local Installation & Execution
+
+To clone and run this workspace locally, ensure you have **Node.js (v18+)** and
+**npm** installed.
+
+### 1. Repository Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [https://github.com/YOUR_USERNAME/eco-pulse-platform.git](https://github.com/YOUR_USERNAME/eco-pulse-platform.git)
+cd eco-pulse-platform
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Backend Initialization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Bash cd backend npm install npm run develop The administration dashboard will
+compile locally at http://localhost:1338/admin. Ensure your user role
+permissions are configured to expose public find and findOne endpoints.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Frontend Initialization
 
-## Learn More
+Open a secondary terminal workspace tab from the root directory:
 
-To learn more about Next.js, take a look at the following resources:
+Bash cd frontend npm install npm run dev The interactive platform will launch at
+http://localhost:3000.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Engineering Milestones (Git History)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project follows strict semantic and conventional commit signatures (feat:,
+chore:, fix:) to demonstrate a clean, predictable production delivery cycle. Key
+architecture phases include:
 
-## Deploy on Vercel
+Workspace initialization and monorepo structural split.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Strapi custom Content-Type validation and relational database design.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Asynchronous dynamic parameter unwrapping matching modernized Next.js SSR
+standards.
+
+Cross-origin asset pipeline mapping for image streaming.
+
+Integrated semantic rich-text parsing using the official Strapi blocks renderer
+and configured Tailwind CSS v4 editorial typography layout constraints.

@@ -1,9 +1,10 @@
 import { StrapiResponse } from "../../../types/article";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 
 async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
   const res = await fetch(
-    `http://127.0.0.1:1338/api/articles?filters[slug][$eq]=${slug}`,
+    `http://127.0.0.1:1338/api/articles?filters[slug][$eq]=${slug}&populate=*`,
     {
       cache: "no-store",
     },
@@ -19,7 +20,7 @@ async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
 export default async function ArticlePage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
   const { data: articles } = await getArticleBySlug(resolvedParams.slug);
@@ -39,6 +40,7 @@ export default async function ArticlePage({
   return (
     <main className="min-h-screen bg-white text-slate-900 py-16 px-6 sm:px-12 lg:px-24">
       <div className="max-w-3xl mx-auto">
+        {/* Navigation Link */}
         <Link
           href="/"
           className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700 mb-8 group"
@@ -59,6 +61,7 @@ export default async function ArticlePage({
           Back to overview
         </Link>
 
+        {/* Article Header */}
         <header className="mb-8">
           <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
             <span>{article.readTime} min read</span>
@@ -75,18 +78,9 @@ export default async function ArticlePage({
           {article.excerpt}
         </div>
 
-        {/* Render Content Blocks */}
-        <div className="mt-8 prose prose-slate max-w-none space-y-6 text-slate-800 leading-relaxed text-lg">
-          {article.content?.map((block, index) => {
-            if (block.type === "paragraph") {
-              return (
-                <p key={index}>
-                  {block.children?.map((child, cIndex) => child.text).join("")}
-                </p>
-              );
-            }
-            return null;
-          })}
+        {/* Rich Content Blocks Renderer */}
+        <div className="mt-8 prose prose-slate max-w-none text-slate-800">
+          {article.content && <BlocksRenderer content={article.content} />}
         </div>
       </div>
     </main>

@@ -1,13 +1,12 @@
+import { BlocksContent } from "@strapi/blocks-react-renderer";
+
 export interface Article {
   id: number;
   documentId: string;
   title: string;
   slug: string;
   excerpt: string;
-  content: Array<{
-    type: string;
-    children: Array<{ type: string; text: string }>;
-  }>;
+  content: BlocksContent;
   readTime: number;
   createdAt: string;
   updatedAt: string;
