@@ -1,8 +1,9 @@
 import { StrapiResponse } from "../types/article";
 import Link from "next/link";
+import Image from "next/image";
 
 async function getArticles(): Promise<StrapiResponse> {
-  const res = await fetch("http://127.0.0.1:1338/api/articles", {
+  const res = await fetch("http://127.0.0.1:1338/api/articles?populate=*", {
     cache: "no-store",
   });
 
@@ -38,50 +39,75 @@ export default async function Home() {
               No articles found. Make sure they are published in Strapi!
             </p>
           ) : (
-            articles.map((article) => (
-              <article
-                key={article.id}
-                className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200"
-              >
-                <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
-                  <span>{article.readTime} min read</span>
-                  <span>•</span>
-                  <span>
-                    {new Date(article.publishedAt).toLocaleDateString()}
-                  </span>
-                </div>
+            articles.map((article) => {
+              const imageUrl = article.coverImage?.url
+                ? `http://localhost:1338${article.coverImage.url}`
+                : null;
 
-                <h2 className="text-2xl font-bold text-slate-950 hover:text-emerald-600 transition-colors">
-                  {article.title}
-                </h2>
-
-                <p className="mt-3 text-slate-600 leading-relaxed">
-                  {article.excerpt}
-                </p>
-
-                <div className="mt-6">
-                  <Link
-                    href={`/articles/${article.slug}`}
-                    className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700"
-                  >
-                    Read article
-                    <svg
-                      className="ml-1 w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M9 5l7 7-7 7"
+              return (
+                <article
+                  key={article.id}
+                  className="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col md:flex-row"
+                >
+                  {/* Cover Image Section */}
+                  {imageUrl && (
+                    <div className="relative w-full md:w-64 h-48 md:h-auto min-h-[200px]">
+                      <Image
+                        src={imageUrl}
+                        alt={
+                          article.coverImage?.alternativeText || article.title
+                        }
+                        fill
+                        className="object-cover"
+                        sizes="(max-w-768px) 100vw, 256px"
+                        unoptimized={true}
                       />
-                    </svg>
-                  </Link>
-                </div>
-              </article>
-            ))
+                    </div>
+                  )}
+
+                  {/* Text Details Section */}
+                  <div className="p-8 flex-1">
+                    <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
+                      <span>{article.readTime} min read</span>
+                      <span>•</span>
+                      <span>
+                        {new Date(article.publishedAt).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-slate-950 hover:text-emerald-600 transition-colors">
+                      {article.title}
+                    </h2>
+
+                    <p className="mt-3 text-slate-600 leading-relaxed">
+                      {article.excerpt}
+                    </p>
+
+                    <div className="mt-6">
+                      <Link
+                        href={`/articles/${article.slug}`}
+                        className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+                      >
+                        Read article
+                        <svg
+                          className="ml-1 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })
           )}
         </section>
       </div>

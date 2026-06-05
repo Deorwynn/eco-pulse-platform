@@ -12,6 +12,16 @@ export interface Article {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  coverImage?: {
+    id: number;
+    url: string;
+    alternativeText: string | null;
+    formats?: {
+      small?: { url: string };
+      medium?: { url: string };
+      thumbnail?: { url: string };
+    };
+  };
 }
 
 export interface StrapiResponse {
