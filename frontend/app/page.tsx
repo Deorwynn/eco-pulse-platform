@@ -1,4 +1,5 @@
 import { StrapiResponse } from "../types/article";
+import Link from "next/link";
 
 async function getArticles(): Promise<StrapiResponse> {
   const res = await fetch("http://127.0.0.1:1338/api/articles", {
@@ -59,7 +60,10 @@ export default async function Home() {
                 </p>
 
                 <div className="mt-6">
-                  <span className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700">
+                  <Link
+                    href={`/articles/${article.slug}`}
+                    className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+                  >
                     Read article
                     <svg
                       className="ml-1 w-4 h-4"
@@ -74,7 +78,7 @@ export default async function Home() {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
-                  </span>
+                  </Link>
                 </div>
               </article>
             ))
