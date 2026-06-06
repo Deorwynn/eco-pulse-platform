@@ -7,13 +7,14 @@ headless Strapi v5 content management database layer.
 
 ## Core Architecture & Stack Selection
 
-The platform is intentionally split into two isolated, specialized
+The platform is intentionally split into three isolated, specialized
 infrastructure layers:
 
-| Layer        | Technology                                        | Primary Responsibility                                                        | Port   |
-| :----------- | :------------------------------------------------ | :---------------------------------------------------------------------------- | :----- |
-| **Frontend** | Next.js 15 (App Router), TypeScript, Tailwind CSS | Server-side rendering, routing optimization, semantic UI delivery             | `3000` |
-| **Backend**  | Strapi v5, SQLite, TypeScript                     | Content modeling, relational data storage, security roles, REST API endpoints | `1338` |
+| Layer                 | Technology                                        | Primary Responsibility                                                        | Port   |
+| :-------------------- | :------------------------------------------------ | :---------------------------------------------------------------------------- | :----- |
+| **Frontend**          | Next.js 15 (App Router), TypeScript, Tailwind CSS | Server-side rendering, routing optimization, semantic UI delivery             | `3000` |
+| **Backend (CMS)**     | Strapi v5, SQLite, TypeScript                     | Content modeling, relational data storage, security roles, REST API endpoints | `1338` |
+| **Backend (Metrics)** | Go (Golang), Native HTTP Architecture             | High-throughput interaction capturing, low-latency telemetry processing       | `8080` |
 
 ### Architectural Engineering Decisions
 
@@ -51,12 +52,28 @@ cd eco-pulse-platform
 ### 2. Strapi Backend Initialization
 
 `cd backend`  
-`npm install`  
+`npm install`
+
+#### Restore the complete project database, media assets, and admin user profiles:
+
+`npx strapi import -f export-package.tar.gz`
+
+#### Launch the backend development layer:
+
 `npm run develop`
 
 The administration dashboard will compile locally at
 http://localhost:1338/admin. Ensure your user role permissions are configured to
 expose public find and findOne endpoints.
+
+### 🔐 Local Administration Sandbox Credentials
+
+To review Content-Type schemas, API access parameters, and relational field data
+maps directly inside the Strapi dashboard (`http://localhost:1338/admin`),
+utilize the following development credentials:
+
+- **Email:** dev-reviewer@ecopulse.local
+- **Password:** DeveloperReview2026!
 
 ### 3. Go Analytics Service Initialization
 
@@ -81,17 +98,18 @@ This project follows strict semantic and conventional commit signatures (feat:,
 chore:, fix:) to demonstrate a clean, predictable production delivery cycle. Key
 architecture phases include:
 
-Workspace initialization and monorepo structural split.
+- Workspace initialization and monorepo structural split.
 
-Strapi custom Content-Type validation and relational database design.
+- Strapi custom Content-Type validation and relational database design.
 
-Asynchronous dynamic parameter unwrapping matching modernized Next.js SSR
-standards.
+- Asynchronous dynamic parameter unwrapping matching modernized Next.js SSR
+  standards.
 
-Cross-origin asset pipeline mapping for image streaming.
+- Cross-origin asset pipeline mapping for image streaming.
 
-Integrated semantic rich-text parsing using the official Strapi blocks renderer
-and configured Tailwind CSS v4 editorial typography layout constraints.
+- Integrated semantic rich-text parsing using the official Strapi blocks
+  renderer and configured Tailwind CSS v4 editorial typography layout
+  constraints.
 
-Engineered an independent Go telemetry service to handle asynchronous
-client-side engagement tracking via cross-origin resource sharing (CORS).
+- Engineered an independent Go telemetry service to handle asynchronous
+  client-side engagement tracking via cross-origin resource sharing (CORS).
