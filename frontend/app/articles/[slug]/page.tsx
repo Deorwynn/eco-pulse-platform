@@ -1,6 +1,7 @@
 import { StrapiResponse } from "../../../types/article";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
+import EngagementCluster from "../../components/EngagementCluster";
 
 async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
   const res = await fetch(
@@ -82,6 +83,8 @@ export default async function ArticlePage({
         <div className="mt-8 prose prose-slate max-w-none text-slate-800">
           {article.content && <BlocksRenderer content={article.content} />}
         </div>
+        {/* Cross-Language Microservice Telemetry Node */}
+        <EngagementCluster articleSlug={article.slug} />
       </div>
     </main>
   );
