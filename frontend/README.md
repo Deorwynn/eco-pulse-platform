@@ -51,8 +51,10 @@ cd eco-pulse-platform
 
 ### 2. Strapi Backend Initialization
 
-`cd backend`  
-`npm install`
+```
+cd backend
+npm install
+```
 
 #### Restore the complete project database, media assets, and admin user profiles:
 
@@ -79,18 +81,55 @@ utilize the following development credentials:
 
 Open a secondary terminal workspace tab from the root directory:
 
-`cd analytics-service`  
-`go run main.go`
+```
+cd analytics-service
+go run main.go
+```
 
 ### 4. Frontend Initialization
 
 Open a third terminal workspace tab from the root directory:
 
-`cd frontend`  
-`npm install`  
-`npm run dev`
+```
+cd frontend
+npm install
+npm run dev
+```
 
 The interactive platform will launch at http://localhost:3000.
+
+### 🔑 Handling the Authenticated API Token
+
+The frontend architecture enforces secure, production-grade token authorization
+for data fetching via an .env.example template. To review the application,
+choose one of the following seamless options:
+
+- Option A (Zero Setup): By default, your imported Strapi database package
+  preserves wide-open public access permissions. If you prefer to bypass
+  environment configurations entirely, simply remove the `headers` block from
+  the `getArticleBySlug` fetch method in `frontend/app/articles/[slug]/page.tsx`
+  to stream content instantly over open public channels.
+
+- Option B (Authenticated Security Pipeline - Recommended): To verify the
+  token-authorized perimeter:
+  1. Create a local environment file at `frontend/.env.local` based on the
+     `.env.example` template.
+
+  2. Log into the Strapi Admin Panel (`http://localhost:1338/admin`) using the
+     sandbox credentials provided above.
+
+  3. Navigate to **Settings** -> **API Tokens**, and click the **pencil/edit
+     icon** on the right side of the token named `NEXT_JS_FRONTEND_TOKEN`.
+
+  4. Ensure its **Token Type** is set to **Custom** with `find` and `findOne`
+     checked under the Article content-type permissions.
+
+  5. Click the **"Regenerate" / "View token"** button in the top-right corner to
+     reveal the secure string key, copy it, and assign it to `STRAPI_API_TOKEN`
+     inside your `frontend/.env.local`.
+
+  6. Restart the frontend server (`npm run dev`) to clear the cached build
+     environment context.
 
 ## Engineering Milestones (Git History)
 

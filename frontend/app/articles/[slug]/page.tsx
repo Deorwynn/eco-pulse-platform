@@ -5,9 +5,12 @@ import EngagementCluster from "../../components/EngagementCluster";
 
 async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
   const res = await fetch(
-    `http://127.0.0.1:1338/api/articles?filters[slug][$eq]=${slug}&populate=*`,
+    `${process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1338"}/api/articles?filters[slug][$eq]=${slug}&populate=*`,
     {
-      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
     },
   );
 
@@ -15,7 +18,9 @@ async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
     throw new Error("Failed to fetch article details");
   }
 
-  return res.json();
+  const rawJson = await res.json();
+
+  return rawJson;
 }
 
 export default async function ArticlePage({
