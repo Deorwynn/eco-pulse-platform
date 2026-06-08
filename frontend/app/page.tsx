@@ -69,13 +69,13 @@ export default async function Home() {
                   <div className="p-8 flex-1">
                     <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
                       <span>{article.readTime} min read</span>
-                      <span>•</span>
+                      <span aria-hidden="true">•</span>
                       <span>
                         {new Date(article.publishedAt).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-bold text-slate-950 hover:text-emerald-600 transition-colors">
+                    <h2 className="text-2xl font-bold text-slate-950">
                       {article.title}
                     </h2>
 
@@ -94,6 +94,7 @@ export default async function Home() {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
+                          aria-hidden="true"
                         >
                           <path
                             strokeLinecap="round"
