@@ -1,7 +1,8 @@
-import { StrapiResponse } from "../../../types/article";
+import { StrapiResponse } from "@/types/article";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import EngagementCluster from "../../components/EngagementCluster";
+import EngagementCluster from "@/app/components/EngagementCluster";
+import ArticleMeta from "@/app/components/ArticleMeta";
 
 async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
   const res = await fetch(
@@ -70,11 +71,7 @@ export default async function ArticlePage({
 
         {/* Article Header */}
         <header className="mb-8">
-          <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
-            <span>{article.readTime} min read</span>
-            <span aria-hidden="true">•</span>
-            <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
-          </div>
+          <ArticleMeta article={article} />
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-950 leading-tight">
             {article.title}
           </h1>

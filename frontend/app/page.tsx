@@ -1,6 +1,7 @@
-import { StrapiResponse } from "../types/article";
+import { StrapiResponse } from "@/types/article";
 import Link from "next/link";
 import Image from "next/image";
+import ArticleMeta from "@/app/components/ArticleMeta";
 
 async function getArticles(): Promise<StrapiResponse> {
   const res = await fetch("http://127.0.0.1:1338/api/articles?populate=*", {
@@ -67,13 +68,7 @@ export default async function Home() {
 
                   {/* Text Details Section */}
                   <div className="p-8 flex-1">
-                    <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
-                      <span>{article.readTime} min read</span>
-                      <span aria-hidden="true">•</span>
-                      <span>
-                        {new Date(article.publishedAt).toLocaleDateString()}
-                      </span>
-                    </div>
+                    <ArticleMeta article={article} />
 
                     <h2 className="text-2xl font-bold text-slate-950">
                       {article.title}
