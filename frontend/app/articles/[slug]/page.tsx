@@ -2,6 +2,7 @@ import { StrapiResponse } from "@/types/article";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 import EngagementCluster from "@/app/components/EngagementCluster";
+import HeadingGroup from "@/app/components/HeadingGroup";
 import ArticleMeta from "@/app/components/ArticleMeta";
 
 async function getArticleBySlug(slug: string): Promise<StrapiResponse> {
@@ -72,9 +73,7 @@ export default async function ArticlePage({
         {/* Article Header */}
         <header className="mb-8">
           <ArticleMeta article={article} />
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-950 leading-tight">
-            {article.title}
-          </h1>
+          <HeadingGroup title={article.title} />
         </header>
 
         {/* Article Excerpt Banner */}

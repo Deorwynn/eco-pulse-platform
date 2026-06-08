@@ -1,4 +1,5 @@
 import { StrapiResponse } from "@/types/article";
+import HeadingGroup from "@/app/components/HeadingGroup";
 import ArticleCard from "@/app/components/ArticleCard";
 
 async function getArticles(): Promise<StrapiResponse> {
@@ -19,20 +20,12 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 py-12 px-6 sm:px-12 lg:px-24">
       <div className="max-w-4xl mx-auto">
-        <header className="border-b border-slate-200 pb-8 mb-12">
-          <hgroup>
-            <p className="text-emerald-600 font-semibold tracking-wide uppercase text-sm mb-1">
-              EcoPulse Platform
-            </p>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-950">
-              Green Tech Hub & Insights
-            </h1>
-          </hgroup>
-          <p className="mt-4 text-lg text-slate-600">
-            Exploring digital sustainability and component-driven frontend
-            architecture.
-          </p>
-        </header>
+        <HeadingGroup
+          title="Green Tech Hub & Insights"
+          eyebrow="EcoPulse Platform"
+          description="Exploring digital sustainability and component-driven frontend architecture."
+          className="border-b border-slate-200 pb-8 mb-12"
+        />
 
         <section className="space-y-10" aria-label="Latest Articles">
           {articles.length === 0 ? (
