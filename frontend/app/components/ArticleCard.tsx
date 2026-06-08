@@ -9,7 +9,7 @@ export default function ArticleCard({ article }: { article: Article }) {
     : null;
 
   return (
-    <article className="relative group bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col md:flex-row">
+    <article className="relative group bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col md:flex-row focus-within:ring-2 focus-within:ring-emerald-500 focus-within:ring-offset-2">
       {/* Cover Image Section */}
       {imageUrl && (
         <div className="relative w-full md:w-64 h-48 md:h-auto min-h-[200px]">
