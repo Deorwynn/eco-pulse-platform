@@ -7,14 +7,13 @@ headless Strapi v5 content management database layer.
 
 ## Core Architecture & Stack Selection
 
-The platform is intentionally split into three isolated, specialized
-infrastructure layers:
+This project is organized as a decoupled monorepo workspace:
 
 | Layer                 | Technology                                        | Primary Responsibility                                                        | Port   |
 | :-------------------- | :------------------------------------------------ | :---------------------------------------------------------------------------- | :----- |
 | **Frontend**          | Next.js 15 (App Router), TypeScript, Tailwind CSS | Server-side rendering, routing optimization, semantic UI delivery             | `3000` |
 | **Backend (CMS)**     | Strapi v5, SQLite, TypeScript                     | Content modeling, relational data storage, security roles, REST API endpoints | `1338` |
-| **Backend (Metrics)** | Go (Golang), Native HTTP Architecture             | High-throughput interaction capturing, low-latency telemetry processing       | `8080` |
+| **Analytics Service** | Go (Golang), Native HTTP Architecture             | High-throughput interaction capturing, low-latency telemetry processing       | `8080` |
 
 ### Architectural Engineering Decisions
 
