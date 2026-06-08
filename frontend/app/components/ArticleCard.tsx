@@ -20,6 +20,7 @@ export default function ArticleCard({ article }: { article: Article }) {
             className="object-cover"
             sizes="(max-w-768px) 100vw, 256px"
             unoptimized={true}
+            priority
           />
         </div>
       )}
