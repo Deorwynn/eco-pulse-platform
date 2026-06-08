@@ -88,7 +88,13 @@ export default async function Home() {
                         href={`/articles/${article.slug}`}
                         className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700"
                       >
-                        Read article
+                        <span>
+                          Read article
+                          <span className="sr-only">
+                            {" "}
+                            about {article.title}
+                          </span>
+                        </span>
                         <svg
                           className="ml-1 w-4 h-4"
                           fill="none"
