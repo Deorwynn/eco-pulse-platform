@@ -49,13 +49,14 @@ export default async function ArticlePage({
         {/* Navigation Link */}
         <Link
           href="/"
-          className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700 mb-8 group"
+          className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700 mb-8 group focus:outline-none focus:underline"
         >
           <svg
             className="mr-2 w-4 h-4 transform group-hover:-translate-x-1 transition-transform"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -71,7 +72,7 @@ export default async function ArticlePage({
         <header className="mb-8">
           <div className="flex items-center space-x-2 text-sm text-slate-500 mb-3">
             <span>{article.readTime} min read</span>
-            <span>•</span>
+            <span aria-hidden="true">•</span>
             <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-950 leading-tight">
@@ -80,16 +81,21 @@ export default async function ArticlePage({
         </header>
 
         {/* Article Excerpt Banner */}
-        <div className="bg-slate-50 border-l-4 border-emerald-500 p-4 my-6 rounded-r-xl italic text-slate-700">
-          {article.excerpt}
-        </div>
+        <blockquote className="bg-slate-50 border-l-4 border-emerald-500 p-4 my-6 rounded-r-xl italic text-slate-700">
+          <p>{article.excerpt}</p>
+        </blockquote>
 
         {/* Rich Content Blocks Renderer */}
         <div className="mt-8 prose prose-slate max-w-none text-slate-800">
           {article.content && <BlocksRenderer content={article.content} />}
         </div>
         {/* Cross-Language Microservice Telemetry Node */}
-        <EngagementCluster articleSlug={article.slug} />
+        <aside
+          className="mt-12 pt-8 border-t border-slate-100"
+          aria-label="Article Engagement"
+        >
+          <EngagementCluster articleSlug={article.slug} />
+        </aside>
       </div>
     </main>
   );
