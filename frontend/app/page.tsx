@@ -21,19 +21,21 @@ export default async function Home() {
     <main className="min-h-screen bg-slate-50 text-slate-900 py-12 px-6 sm:px-12 lg:px-24">
       <div className="max-w-4xl mx-auto">
         <header className="border-b border-slate-200 pb-8 mb-12">
-          <span className="text-emerald-600 font-semibold tracking-wide uppercase text-sm">
-            EcoPulse Platform
-          </span>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mt-2 text-slate-950">
-            Green Tech Hub & Insights
-          </h1>
+          <hgroup>
+            <p className="text-emerald-600 font-semibold tracking-wide uppercase text-sm mb-1">
+              EcoPulse Platform
+            </p>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-950">
+              Green Tech Hub & Insights
+            </h1>
+          </hgroup>
           <p className="mt-4 text-lg text-slate-600">
             Exploring digital sustainability and component-driven frontend
             architecture.
           </p>
         </header>
 
-        <section className="space-y-10">
+        <section className="space-y-10" aria-label="Latest Articles">
           {articles.length === 0 ? (
             <p className="text-slate-500">
               No articles found. Make sure they are published in Strapi!
@@ -47,16 +49,14 @@ export default async function Home() {
               return (
                 <article
                   key={article.id}
-                  className="bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col md:flex-row"
+                  className="relative group bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col md:flex-row"
                 >
                   {/* Cover Image Section */}
                   {imageUrl && (
                     <div className="relative w-full md:w-64 h-48 md:h-auto min-h-[200px]">
                       <Image
                         src={imageUrl}
-                        alt={
-                          article.coverImage?.alternativeText || article.title
-                        }
+                        alt={article.coverImage?.alternativeText || ""}
                         fill
                         className="object-cover"
                         sizes="(max-w-768px) 100vw, 256px"
@@ -86,7 +86,7 @@ export default async function Home() {
                     <div className="mt-6">
                       <Link
                         href={`/articles/${article.slug}`}
-                        className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+                        className="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700 focus:outline-none focus:underline after:absolute after:inset-0"
                       >
                         <span>
                           Read article
@@ -96,7 +96,7 @@ export default async function Home() {
                           </span>
                         </span>
                         <svg
-                          className="ml-1 w-4 h-4"
+                          className="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition-transform"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
